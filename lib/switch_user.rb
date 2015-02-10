@@ -25,6 +25,8 @@ module SwitchUser
   mattr_accessor :controller_guard
   mattr_accessor :view_guard
   mattr_reader   :guard_class
+  
+  mattr_accessor :update_devise_last_signin_ip
 
   def self.setup
     yield self
@@ -66,6 +68,7 @@ module SwitchUser
     self.helper_with_guest = true
     self.switch_back = false
     self.login_exclusive = true
+    self.update_devise_last_signin_ip = true
   end
 
   reset_config
