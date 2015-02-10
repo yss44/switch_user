@@ -7,7 +7,11 @@ module SwitchUser
       end
 
       def login(user, scope = :user)
-        @warden.set_user(user, :scope => scope)
+        if SwitchUser.update_devise_last_signin_ip
+          @warden.session_serializer.store(user, scope) 
+        else
+          @warden.set_user(user, :scope => scope)
+        end
       end
 
       def logout(scope = :user)
